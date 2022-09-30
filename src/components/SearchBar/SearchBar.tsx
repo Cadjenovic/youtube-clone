@@ -1,13 +1,13 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setSearchTerm } from "../state/slices/searchTermSlice";
-import { RootState } from "../state/store";
-import { setVideos } from "../state/slices/videoSlice";
-import { searchWithTerm } from "../api/youtube";
+import { setSearchTerm } from "../../state/slices/searchTermSlice";
+import { RootState } from "../../state/store";
+import { setSearchedVideos } from "../../state/slices/videoSlice";
+import { searchWithTerm } from "../../api/youtube";
+import "./SearchBar.css";
 
 const SearchBar = () => {
     const { searchTerm } = useSelector((state: RootState) => state.searchTerm);
-    const { videos } = useSelector((state: RootState) => state.videos);
     const dispatch = useDispatch();
 
     const onSearchTermChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -16,12 +16,12 @@ const SearchBar = () => {
 
     const onSearch = () => {
         searchWithTerm(searchTerm).then((res) =>
-            dispatch(setVideos(res.data.items))
+            dispatch(setSearchedVideos(res.data.items))
         );
     };
 
     return (
-        <div>
+        <div className="search-bar">
             <input
                 type="text"
                 value={searchTerm}

@@ -1,23 +1,25 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface VideoState {
-    videos: any[];
+export interface VideoState {
+    searchedVideos: any[];
+    trendingVideos: any[];
 }
 
 const initialState: VideoState = {
-    videos: [],
+    searchedVideos: [],
+    trendingVideos: [],
 };
 
 const videoSlice = createSlice({
     name: "videos",
     initialState,
     reducers: {
-        setVideos: (state, action: PayloadAction<any[]>) => {
-            state.videos = action.payload;
+        setSearchedVideos: (state, action: PayloadAction<any[]>) => {
+            state.searchedVideos = action.payload;
         },
     },
 });
 
-export const { setVideos } = videoSlice.actions;
+export const { setSearchedVideos } = videoSlice.actions;
 
 export default videoSlice.reducer;

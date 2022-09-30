@@ -1,0 +1,42 @@
+.carousel-container {
+    position: relative;
+}
+
+.carousel-overflow {
+    margin: 15px;
+    display: flex;
+    overflow-x: scroll;
+    border: 1px solid black;
+    border-radius: 8px;
+    cursor: grab;
+    scroll-behavior: smooth;
+    background-color: rgba(1, 1, 1, 0.8);
+    color: white;
+}
+::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+    background-color: transparent;
+}
+
+.carousel-button-left,
+.carousel-button-right {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    transform: translate(0, -50%);
+    color: white;
+    background-color: rgba(1, 1, 1, 0.9);
+    border-radius: 50%;
+}
+
+.carousel-button-left {
+    top: 50%;
+    left: -7px;
+}
+
+.carousel-button-right {
+    top: 50%;
+    right: -7px;
+}
