@@ -25,7 +25,6 @@ const VideoCard: FC<IProps> = ({ title, thumbnail }) => {
     const stopScrollTitle = () => {
         clearInterval(interval);
         if (ref.current?.scrollTop || ref.current?.scrollTop === 0) {
-            console.log("cao");
             ref.current.scrollTop = 0;
         }
     };

@@ -1,6 +1,7 @@
-// import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchBar from "../SearchBar/SearchBar";
 import SlidingCarousel from "../SlidingCarousel/SlidingCarousel";
+import { searchWithTerm } from "../../api/youtube";
 // import { RootState } from "../../state/store";
 // import { useSelector, useDispatch } from "react-redux";
 
@@ -358,15 +359,42 @@ const a = [
 ];
 
 const Home = () => {
-    // const { searchedVideos, trendingVideos } = useSelector(
-    //     (state: RootState) => state.videos
-    // );
-    // const dispatch = useDispatch();
+    const [favorites, setFavorites] = useState([]);
+    const [vids, setVids] = useState<any[]>([]);
+
+    useEffect(() => {
+        const favoritesRaw = localStorage.getItem("favorite-videos");
+        if (favoritesRaw) {
+            const favorites = JSON.parse(favoritesRaw);
+            const newVids = [...vids];
+
+            favorites.forEach((keyword: string) => {
+                searchWithTerm(keyword).then((res) => {
+                    newVids.push(res.data.items);
+                });
+            });
+
+            setVids(newVids);
+        }
+    }, []);
 
     return (
-        <div className="home">
+        <div
+            className="home"
+            onClick={() => {
+                console.log(vids);
+            }}
+        >
             <SearchBar />
+            {vids
+                ? vids.map((vid: any[]) => {
+                      console.log("caro");
+                      return <SlidingCarousel title="1" videos={vid} />;
+                  })
+                : "Loading..."}
+            {/* <SlidingCarousel title="Searched Videos" videos={a} />
             <SlidingCarousel title="Searched Videos" videos={a} />
+            <SlidingCarousel title="Searched Videos" videos={a} /> */}
         </div>
     );
 };
