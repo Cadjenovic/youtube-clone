@@ -2,12 +2,14 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface VideoState {
     searchedVideos: any[];
-    trendingVideos: any[];
+    recommendedVideos: any[];
+    selectedVideo: any;
 }
 
 const initialState: VideoState = {
     searchedVideos: [],
-    trendingVideos: [],
+    recommendedVideos: [],
+    selectedVideo: null,
 };
 
 const videoSlice = createSlice({
@@ -17,9 +19,16 @@ const videoSlice = createSlice({
         setSearchedVideos: (state, action: PayloadAction<any[]>) => {
             state.searchedVideos = action.payload;
         },
+        setRecommendedVideos: (state, action: PayloadAction<any[]>) => {
+            state.recommendedVideos = action.payload;
+        },
+        setSelectedVideo: (state, action: PayloadAction<any>) => {
+            state.selectedVideo = action.payload;
+        },
     },
 });
 
-export const { setSearchedVideos } = videoSlice.actions;
+export const { setSearchedVideos, setRecommendedVideos, setSelectedVideo } =
+    videoSlice.actions;
 
 export default videoSlice.reducer;

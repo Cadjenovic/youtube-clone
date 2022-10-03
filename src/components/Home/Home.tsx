@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import SearchBar from "../SearchBar/SearchBar";
 import SlidingCarousel from "../SlidingCarousel/SlidingCarousel";
 import { searchWithTerm } from "../../api/youtube";
-// import { RootState } from "../../state/store";
-// import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../state/store";
+import { useSelector, useDispatch } from "react-redux";
+import { setRecommendedVideos } from "../../state/slices/videoSlice";
+import { youtube } from "../../api/youtube";
+import { searchRecommendedVideos } from "../../api/youtube";
 
 const a = [
     {
@@ -358,43 +361,53 @@ const a = [
     },
 ];
 
+{
+    /* <iframe
+    width="560"
+    height="315"
+    src="https://www.youtube.com/embed/NI0pHv0ZOw4"
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+></iframe>; */
+}
+
 const Home = () => {
-    const [favorites, setFavorites] = useState([]);
-    const [vids, setVids] = useState<any[]>([]);
+    const { recommendedVideos } = useSelector(
+        (state: RootState) => state.videos
+    );
+    const dispatch = useDispatch();
 
-    useEffect(() => {
-        const favoritesRaw = localStorage.getItem("favorite-videos");
-        if (favoritesRaw) {
-            const favorites = JSON.parse(favoritesRaw);
-            const newVids = [...vids];
+    // useEffect(() => {
+    //     const favoritesRaw = localStorage.getItem("favorite-videos");
 
-            favorites.forEach((keyword: string) => {
-                searchWithTerm(keyword).then((res) => {
-                    newVids.push(res.data.items);
-                });
-            });
+    //     const callApi = async (keywords: string[]) => {
+    //         const res = await searchRecommendedVideos(keywords);
+    //         const recommendedVideos = res.map((data) => data.data.items);
+    //         console.log(recommendedVideos);
+    //         dispatch(setRecommendedVideos(recommendedVideos));
+    //     };
 
-            setVids(newVids);
-        }
-    }, []);
+    //     if (favoritesRaw) {
+    //         const favorites = JSON.parse(favoritesRaw);
+    //         callApi(favorites);
+    //     }
+    // }, []);
 
     return (
-        <div
-            className="home"
-            onClick={() => {
-                console.log(vids);
-            }}
-        >
+        <div className="home">
             <SearchBar />
-            {vids
-                ? vids.map((vid: any[]) => {
-                      console.log("caro");
-                      return <SlidingCarousel title="1" videos={vid} />;
-                  })
-                : "Loading..."}
-            {/* <SlidingCarousel title="Searched Videos" videos={a} />
-            <SlidingCarousel title="Searched Videos" videos={a} />
-            <SlidingCarousel title="Searched Videos" videos={a} /> */}
+            {/* {recommendedVideos.length !== 0 ? (
+                recommendedVideos.map((vid: any[], i: number) => {
+                    return <SlidingCarousel key={i} title="1" videos={vid} />;
+                })
+            ) : (
+                <div>"Loading..."</div>
+            )} */}
+            <SlidingCarousel title="1" videos={a} />
+            <SlidingCarousel title="1" videos={a} />
+            <SlidingCarousel title="1" videos={a} />
         </div>
     );
 };

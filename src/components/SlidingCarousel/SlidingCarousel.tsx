@@ -18,8 +18,10 @@ const SlidingCarousel: FC<IProps> = ({ title, videos }) => {
         return (
             <VideoCard
                 key={video.id.videoId}
-                title={video.snippet.title}
-                thumbnail={video.snippet.thumbnails.medium.url}
+                // id={video.id.videoId}
+                // title={video.snippet.title}
+                // thumbnail={video.snippet.thumbnails.medium.url}
+                video={video}
             />
         );
     });

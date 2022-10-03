@@ -4,6 +4,8 @@ import { setSearchTerm } from "../../state/slices/searchTermSlice";
 import { RootState } from "../../state/store";
 import { setSearchedVideos } from "../../state/slices/videoSlice";
 import { searchWithTerm } from "../../api/youtube";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import "./SearchBar.css";
 
 const SearchBar = () => {
@@ -27,7 +29,12 @@ const SearchBar = () => {
                 value={searchTerm}
                 onChange={(e) => onSearchTermChange(e)}
             />
-            <button onClick={() => onSearch()}>Search</button>
+            <FontAwesomeIcon
+                className="search-btn"
+                onClick={() => console.log("Search")}
+                icon={faSearch}
+            />
+            {/* <button onClick={() => onSearch()}>Search</button> */}
         </div>
     );
 };
